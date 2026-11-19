@@ -1,0 +1,31 @@
+ lotka-volterra, quadratique : x' = x(1 - y), y' = y(x - 1)
+darboux attendus : x (cofacteur 1 - y), y (cofacteur x - 1)
+
+sage -c '__name__ = "lib"; load("extactique.sage"); P, Q = x*(1-y), y*(x-1); [print("n = %d :" % n, candidats_darboux(P, Q, n)[1]) for n in [2, 3]]'
+
+pour n = 2 et 3 :
+n = 2 : [(y, x - 1), (x, -y + 1)]
+n = 3 : [(y, x - 1), (x, -y + 1)]
+
+
+cycle limite algebrique, cubique : x' = -y + x(1 - x^2 - y^2), y' = x + y(1 - x^2 - y^2)
+ darboux attendus : x^2 + y^2 - 1 (cofacteur -2(x^2 + y^2)), x^2 + y^2 (cofacteur 2(1 - x^2 - y^2))
+
+sage -c '__name__ = "lib"; load("extactique.sage"); P, Q = -y + x*(1-x^2-y^2), x + y*(1-x^2-y^2); [print("n = %d :" % n, candidats_darboux(P, Q, n)[1]) for n in [2, 3]]'
+
+pour n = 2 et 3 :
+n = 2 : [(x^2 + y^2 - 1, -2*x^2 - 2*y^2), (x^2 + y^2, -2*x^2 - 2*y^2 + 2)]
+n = 3 : [(x^2 + y^2 - 1, -2*x^2 - 2*y^2), (x^2 + y^2, -2*x^2 - 2*y^2 + 2)]
+
+
+quadratique dense, coefficients rationnels quelconques :
+  x' = -49/11 x^2 + 3/29 xy + 10/7 y^2 - 53/76 x + y + 3/92
+  y' = -33/53 x^2 + 73/23 xy + 91/75 y^2 + 89/56 x - 41/36 y - 66/13
+  darboux attendus : aucun (champ generique)
+ n = 3 ne finit pas en 30 s, le timeout coupe le calcul
+
+sage -c '__name__ = "lib"; load("extactique.sage"); P, Q = -49/11*x^2 + 3/29*x*y + 10/7*y^2 - 53/76*x + y + 3/92, -33/53*x^2 + 73/23*x*y + 91/75*y^2 + 89/56*x - 41/36*y - 66/13; [print("n = %d :" % n, candidats_darboux(P, Q, n)[1], flush=True) for n in [2, 3]]'
+
+pour n = 2 et 3 :
+n = 2 : []
+n = 3 : ne finit pas en 30 s
